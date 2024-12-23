@@ -12,6 +12,7 @@ export default function FocusFlySlate({ propsFromN, head, tail, dynamicWidth, t,
     style={{ ...propsFromN.style, ...contentItemStyle }}>
     <li>
       <DemoSlate
+        id="f-first"
         ref={miniBack == null ? head : null}
         href="https://wswmsword.github.io/examples/focus-fly/#h-hot"
         t={t("s_ffly_t1")} d={t("s_ffly_d1")} />
@@ -39,6 +40,7 @@ export default function FocusFlySlate({ propsFromN, head, tail, dynamicWidth, t,
     </li>
     <li>
       <DemoSlate
+        id="f-last"
         href="https://wswmsword.github.io/examples/focus-fly/#h-scroll"
         t={t("s_ffly_t6")} d={t("s_ffly_d6")}
         ref={tail} />
@@ -46,8 +48,8 @@ export default function FocusFlySlate({ propsFromN, head, tail, dynamicWidth, t,
   </ul></>;
 }
 
-const DemoSlate = forwardRef(function DemoSlate({ href, t, d }, ref) {
-  return <a href={href} ref={ref}>
+const DemoSlate = forwardRef(function DemoSlate({ href, t, d, id }, ref) {
+  return <a href={href} ref={ref} id={id}>
     <div className={styles.title}>{t}</div>
     <div className={styles.desc}>{d}</div>
   </a>

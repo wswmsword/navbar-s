@@ -25,6 +25,7 @@ export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t,
         <Item><button className={styles.navBtn}>Focus-Fly</button></Item>
       </Trigger>
       <FinalC
+        id="menu_container"
         className={styles.panelsWrapperInner}
         xTrans={{
           opacity: [0, 1],

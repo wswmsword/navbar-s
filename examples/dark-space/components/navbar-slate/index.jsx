@@ -1,6 +1,5 @@
 import { Trans } from "react-i18next";
 import styles from "./index.module.css";
-import { MiniBack } from "hanav";
 
 export default function NavbarSlate({ propsFromN, head, tail, dynamicWidth, t, miniBack }) {
   const contentItemStyle = {
@@ -21,10 +20,10 @@ export default function NavbarSlate({ propsFromN, head, tail, dynamicWidth, t, m
     </div>
     <span className={styles.title}>{t("o")}</span>
     <ul className={styles.links}>
-      <li><a ref={miniBack == null ? head : null} href={t("s_nb_doc_t1_link")}>{t("s_nb_doc_t1")}</a></li>
+      <li><a id="n-first" ref={miniBack == null ? head : null} href={t("s_nb_doc_t1_link")}>{t("s_nb_doc_t1")}</a></li>
       <li><a href={t("s_nb_doc_t2l")}>{t("s_nb_doc_t2")}</a></li>
       <li><a href={t("s_nb_doc_t3l")}>{t("s_nb_doc_t3")}</a></li>
-      <li><a ref={tail} href={t("s_nb_doc_t4l")}>{t("s_nb_doc_t4")}</a></li>
+      <li><a id="n-last" ref={tail} href={t("s_nb_doc_t4l")}>{t("s_nb_doc_t4")}</a></li>
     </ul>
   </div>;
 }
