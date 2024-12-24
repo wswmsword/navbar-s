@@ -4,5 +4,5 @@ import { ContextForMiniItem, ContextForMiniItemOrder } from "./context";
 export default function Head({ children }) {
   const { headFocusItemInContent } = useContext(ContextForMiniItem)
   const orderI = useContext(ContextForMiniItemOrder);
-  return cloneElement(children, { ref: e => headFocusItemInContent.current[orderI] = e });
+  return headFocusItemInContent == null ? children : cloneElement(children, { ref: e => headFocusItemInContent.current[orderI] = e });
 }

@@ -4,5 +4,5 @@ import { ContextForMiniItem, ContextForMiniItemOrder } from "./context";
 export default function Tail({ children }) {
   const { tailFocusItemInContent } = useContext(ContextForMiniItem);
   const orderI = useContext(ContextForMiniItemOrder);
-  return cloneElement(children, { ref: e => tailFocusItemInContent.current[orderI] = e });
+  return tailFocusItemInContent == null ? children : cloneElement(children, { ref: e => tailFocusItemInContent.current[orderI] = e });
 }
