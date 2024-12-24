@@ -6,6 +6,6 @@ export default function MotionContent({ children, xTrans, yTrans, trans, ...cont
 
   return <MotionContentWrapper
     {...contentWrapperProps}>
-      <Items>{children}</Items>
+      {transRunning => <Items transRunning={transRunning}>{children}</Items>}
   </MotionContentWrapper>;
 }

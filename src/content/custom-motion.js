@@ -5,7 +5,7 @@ import CustomMotionContentWrapper from "./wrapper/custom-motion";
 export default function CustomMotionContent({ children, yTrans, xTrans, trans, ...contentWrapperProps }) {
 
   return <CustomMotionContentWrapper trans={yTrans} {...contentWrapperProps}>
-    {({ transRunning }) =>
+    {transRunning =>
       <CustomMotionItems
         trans={xTrans}
         transRunning={transRunning}>{children}</CustomMotionItems>}

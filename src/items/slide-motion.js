@@ -5,7 +5,7 @@ import { ContextForContent } from "../context";
  * 
  * dom 装载 > 获取 dom left 值 > 初始状态 > tick（事件循环） > 动画状态
  */
-export default function Items({ children }) {
+export default function Items({ children, transRunning }) {
   const {
     openedMenuIdx,
     dur,
@@ -35,7 +35,7 @@ export default function Items({ children }) {
     children,
     (child, i) =>
       cloneElement(child,
-        { type: "C", orderI: i, contentItemStyle: genItemStyle() }));
+        { type: "C", orderI: i, contentItemStyle: genItemStyle(), transRunning }));
 
   function genItemStyle() {
     return {
