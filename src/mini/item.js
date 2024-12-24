@@ -1,5 +1,5 @@
 import React, { cloneElement, useContext, useEffect, useId, useState } from "react";
-import { ContextForMiniItem } from "./context";
+import { ContextForMiniItem, ContextForMiniItemOrder } from "./context";
 
 export default function Item({ children, type, orderI }) {
 
@@ -52,9 +52,11 @@ export default function Item({ children, type, orderI }) {
       "aria-labelledby": triggerIdsRef.current[orderI],
     };
 
-    if (typeof children === "function")
-      return children(contentProps, getHead, getTail);
-    return cloneElement(children, { head: getHead, tail: getTail, propsFromN: contentProps });
+    return <ContextForMiniItemOrder.Provider value={orderI}>
+      {typeof children === "function" ?
+        children(contentProps, getHead, getTail) :
+        cloneElement(children, contentProps)}
+    </ContextForMiniItemOrder.Provider>
   }
 
   return <>{children}</>;

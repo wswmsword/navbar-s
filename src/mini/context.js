@@ -6,3 +6,4 @@ export const ContextForMiniTrigger = createContext({});
 export const ContextForMiniMenu = createContext({});
 export const ContextForMiniToggle = createContext({});
 export const ContextForMiniBack = createContext();
+export const ContextForMiniItemOrder = createContext();

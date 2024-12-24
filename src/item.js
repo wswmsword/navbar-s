@@ -1,5 +1,5 @@
 import React, { cloneElement, useContext, useEffect, useId, useState } from "react";
-import { ContextForItem } from "./context";
+import { ContextForItem, ContextForItemOrder } from "./context";
 
 export default function Item({ children, type, orderI, contentItemStyle, transRunning }) {
   const isTrigger = type === 'T';
@@ -136,11 +136,14 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
     };
     const getHead = e => headFocusItemInContent.current[orderI] = e;
     const getTail = e => tailFocusItemInContent.current[orderI] = e;
-    // render props
-    if (typeof children === "function")
-      return children(contentProps, getHead, getTail);
-    // component
-    return cloneElement(children, { head: getHead, tail: getTail, propsFromN: contentProps });
+    
+    return <ContextForItemOrder.Provider value={orderI}>
+      {typeof children === "function" ?
+        // render props
+        children(contentProps, getHead, getTail) :
+        // component
+        cloneElement(children, contentProps)}
+    </ContextForItemOrder.Provider>;
   }
 
   return children;

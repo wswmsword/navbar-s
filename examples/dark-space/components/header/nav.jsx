@@ -42,9 +42,12 @@ export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t,
             dynamicWidth={dynamicWidth} />
         </Item>
         <Item>
-          <MobileForeverSlate
+          {(p, head, tail) => <MobileForeverSlate
+            p={p}
+            head={head}
+            tail={tail}
             t={t}
-            dynamicWidth={dynamicWidth} />
+            dynamicWidth={dynamicWidth} />}
         </Item>
         <Item>
           <FocusFlySlate

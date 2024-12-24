@@ -15,7 +15,7 @@ hanav 是一个 React 导航栏组件库，包含一组触发器和一组对应�
 - 📱 兼容移动端设计；
 - 🚀 开发体验良好。
 
-您可以打开[演示链接](https://wswmsword.github.io/examples/hanav)，查看 hanav 在不同屏幕下的使用效果。[![Edit hanav-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/rn6r6d)
+您可以打开[演示链接](https://wswmsword.github.io/examples/hanav)，查看 hanav 在不同屏幕下的使用效果，或[在线编辑 CodeSandbox](https://codesandbox.io/p/sandbox/rn6r6d)（[![Edit hanav-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/rn6r6d)），及时看到修改效果。
 
 <details>
 <summary>在 Chrome 中，可以打开“短暂地突出显示焦点对象”无障碍功能，来可视化查看组件的焦点走向。</summary>
@@ -284,6 +284,14 @@ npm run dev
   - 上浮和下沉函数，找到合适的抽象层
 
 查看[一些原理](./how-it-works.md)。
+
+## 测试
+
+贡献源码后，首先在[测试文件](./tests/index.spec.js)中添加对应的单元测试，然后运行[仓库的 dark-space 项目](./examples/dark-space)，最后在 hanav 根目录运行测试。
+
+```bash
+npm run t
+```
 
 ## CHANGELOG
 
