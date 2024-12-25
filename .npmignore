@@ -5,3 +5,7 @@ spec
 package-lock.json
 examples
 images
+tests
+test-results
+playwright-report
+playwright
