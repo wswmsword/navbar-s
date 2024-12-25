@@ -1,4 +1,5 @@
 import styles from "./index.module.css";
+import { useState } from "react";
 import { NavBar, Trigger, Content, Item, CustomXMotionContent, CustomYMotionContent,
   CustomMotionContent, ReducedMotionContent } from "hanav";
 import NavbarSlate from "../navbar-slate";
@@ -7,6 +8,8 @@ import FocusFlySlate from "../focus-fly-slate"
 
 /** 宽屏状态下的导航栏，如桌面端 */
 export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t, motion, hasCustomXTrans, hasCustomYTrans }) {
+
+  const [bg, setBg] = useState(false);
 
   const FinalC = (() => {
     if (!motion) return ReducedMotionContent;
@@ -35,7 +38,9 @@ export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t,
           opacity: [0, 1],
           transform: ["rotateX(-30deg) scale(.9)", "rotateX(0deg) scale(1)"],
           transformOrigin: "top center",
-        }}>
+        }}
+        onExpanding={() => setBg(true)}
+        onCollapsing={() => setBg(false)}>
         <Item>
           <NavbarSlate
             t={t}
@@ -57,5 +62,6 @@ export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t,
         </Item>
       </FinalC>
     </NavBar>
+    <div className={`${styles.blurBg} ${bg ? styles.showBlur : ""}`} />
   </div>;
 }

@@ -4,8 +4,6 @@
 
 中文 | [English](./README_EN.md)
 
-> hanav is a React navigation menu component library that includes a set of triggers and a corresponding set of menu panels. For more information, please refer to [the English README](./README_EN.md) or [demo](https://wswmsword.github.io/examples/hanav/en).
-
 hanav 是一个 React 导航栏组件库，包含一组触发器和一组对应的菜单面板，用户可以通过触发器展开、切换、收起菜单面板。导航栏通常出现在网站的顶部，提供最希望用户访问的链接和其它控件。hanav 有下面这些特性：
 
 - 🍯 流畅的过渡动画；
@@ -14,6 +12,8 @@ hanav 是一个 React 导航栏组件库，包含一组触发器和一组对应�
 - 🎨 高度自定义；
 - 📱 兼容移动端设计；
 - 🚀 开发体验良好。
+
+> hanav is a React navigation menu component library that includes a set of triggers and a corresponding set of menu panels. For more information, please refer to [the English README](./README_EN.md) or [demo](https://wswmsword.github.io/examples/hanav/en).
 
 您可以打开[演示链接](https://wswmsword.github.io/examples/hanav)，查看 hanav 在不同屏幕下的使用效果，或[在线编辑 CodeSandbox](https://codesandbox.io/p/sandbox/rn6r6d)（[![Edit hanav-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/rn6r6d)），及时看到修改效果。
 
@@ -37,8 +37,8 @@ npm install hanav
 下面是安装之后，使用组件的大致形态，完整的范例可以打开[仓库的 `dark-space` 文件夹](./examples/dark-space/components/header/nav.jsx)（Next.js 项目）查看：
 
 ```javascript
-import { NavBar, Trigger, Item, Content } from "hanav";
-function MyNavBar() {
+import { NavBar, Trigger, Item, Content, Head, Tail } from "hanav";
+export default function MyNavBar() {
   return <NavBar style={{ position: "relative" }}>
     <Trigger style={{ display: "flex", gap: 8 }}>
       <a href="https://github.com/wswmsword/hanav">Repo</a>
@@ -47,19 +47,15 @@ function MyNavBar() {
       <Item><button>Trigger 3</button></Item>
     </Trigger>
     <Content className="panelsWrapper">
-      <Item>{props => <div {...props}>Content 1</div>}</Item>
-      <Item>
-        {(props, head, tail) => <div {...props}>
-          <a href="https://react.dev/?uwu" ref={head}>React</a>
-          vs
-          <a href="https://vuejs.org/?uwu" ref={tail}>Vue</a>
-        </div>}
-      </Item>
-      <Item>{props => <div {...props}>Content 3</div>}</Item>
+      <Item><div>Content 1</div></Item>
+      <Item><div>
+        <Head><a href="https://react.dev/?uwu">React</a></Head> vs
+        <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+      </div></Item>
+      <Item><div>Content 3</div></Item>
     </Content>
   </NavBar>;
 }
-export default MyNavBar;
 ```
 
 一般，上面的范例更适合桌面端之类的宽屏，移动端使用 hanav 的大致形态可以查看后面的“[移动端视图 mini 系列](#移动端视图-mini-系列)”一节，也可以打开仓库的 [`dark-space` 文件夹](./examples/dark-space/components/header/mini-nav.jsx)查看完整例子。
@@ -67,6 +63,8 @@ export default MyNavBar;
 ## API
 
 导航栏组件主要由 4 部分组成，分别是 `<NavBar>`、`<Trigger>`、`<Content>` 和 `<Item>`，此外，`<Content>` 还包括一些变体用于满足**关闭**或**定制**过渡动画的需求。
+
+`<Head>` 和 `<Tail>` 用于标记每个菜单面板中可被聚焦的首尾元素，用于键盘导航。
 
 对于移动端视图，hanav 提供了 mini 系列，包括 `<MiniNavBar>`、`<MiniTrigger>`、`<MiniContent>`、`<MiniItem>`、`<MiniMenu>`、`<MiniToggle>`、`<MiniBack>`。
 
@@ -106,7 +104,11 @@ import { Content } from "hanav";
 
 `<Content>` 接收任何内置的 props，这些 props 最终生效在**内层** `<div>` 上，外层 `<div>` 可以通过 `outer` 属性传入需要的 props。内层 `<div>` 用于设置整个面板的样式，外层 `<div>` 主要用于 hanav 内部对整个面板横向动画的控制。
 
-- `outer`，`outer` 中的对象会作为 props 传入 `<Content>` 渲染的外层 `<div>` 上。
+- `outer`，`outer` 中的对象会作为 props 传入 `<Content>` 渲染的外层 `<div>` 上；
+- `onExpanding`，`() => void`，菜单展开动画开始时调用；
+- `onExpanded`，`() => void`，展开动画结束后调用；
+- `onCollapsing`，`() => void`，收起动画开始时调用；
+- `onCollapsed`，`() => void`，收起动画结束后调用。
 
 ### Item
 
@@ -129,19 +131,34 @@ import { Item } from "hanav";
 
 render prop 的方式也许对于代码的理解更有帮助，但是不如直接传入组件简洁。render prop 的入参包含了事件、ARIA 标签等必要信息。
 
-`<Item>` 在 `<Content>` 中时，`<Item>` 的子元素是一个内容面板，子元素 children 必须是一个 render prop，例如下面这样：
+`<Item>` 在 `<Content>` 中时，`<Item>` 的子元素是一个内容面板，子元素 children 同样可以是一个组件/元素，也可以是一个 render prop：
 
 ```javascript
+// 组件/元素
+<Item><div>
+    <Head><a href="https://react.dev/?uwu">React</a></Head> vs
+    <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+</div></Item>
+// render prop
 <Item>
   {(props, head, tail) => <div {...props} style={{ ...props.style, width: "100%", flexShrink: 0 }}>
-    <a href="https://react.dev/?uwu" ref={head}>React</a>
-    vs
+    <a href="https://react.dev/?uwu" ref={head}>React</a> vs
     <a href="https://vuejs.org/?uwu" ref={tail}>Vue</a>
   </div>}
 </Item>
 ```
 
-上面例子中的 props 必须要传递给内容面板元素，这些 props 同样包含了事件、ARIA 标签等必须的信息，render prop 的入参还提供了第二个参数 `head` 和第三个参数 `tail`，如果内容面板中包含可聚焦的元素，必须要分别把 `head` 作为 `ref` 传递给第一个可聚焦元素，把 `tail` 作为 `ref` 传递给最后一个可聚焦元素，这两个 `ref` 会完成键盘 <kbd>Tab</kbd> 导航的工作，如果内容面板中只展示，没有聚焦元素，可以忽略这两个参数。
+hanav 需要知晓菜单面板中的首尾**可聚焦元素**，以此完成键盘导航。从上面的例子可以看到，render prop 形式的子元素提供了 2、3 参数，使用 `ref` 标记首尾可聚焦元素。组件/元素形式的子元素可以通过引入 `<Head/Tail>` 组件来声明式标记首尾可聚焦元素。
+
+### Head/Tail
+
+```javascript
+import { Head, Tail, MiniHead, MiniTail } from "hanav";
+```
+
+`<Head/Tail>` 用于 `<Content>` 下的 `<Item>` 子元素中，`<MiniHead/MiniTail>` 用于 `<MiniContent>` 下的 `<MiniItem>` 子元素中。
+
+它们用于标记每个菜单面板中的首尾可聚焦元素。成功标记后，按下 <kbd>Enter</kbd> 打开菜单时，将聚焦菜单的首个可聚焦元素，在菜单中持续 <kbd>Tab</kbd> 时，焦点会在首尾可聚焦元素之间循环。
 
 ### Group
 
@@ -221,11 +238,11 @@ export default function MyLittleNav() {
           <a>Home Page</a>
           <a ref={tail} href="https://github.com/wswmsword/hanav/blob/main/images/wechat-pay.png">Donate</a>
         </div>}</MiniItem>
-        <MiniItem>{(p, head, tail) => <div {...p}>
-          <a ref={head}>Home Page</a>
+        <MiniItem><div>
+          <Head><a>Home Page</a></Head>
           <MiniBack>Back To Main Menu</MiniBack>
-          <a ref={tail}>Bye Bye</a>
-        </div>}</MiniItem>
+          <Tail><a>Bye Bye</a></Tail>
+        </div></MiniItem>
       </MiniContent>
     </MiniMenu>
   </MiniNavBar>;
@@ -272,6 +289,7 @@ npm run dev
   - 有正确的 ARIA 标签，能够通过安卓 TalkBack 和 iOS、MacOS 的 VoiceOver 的验证
   - 能够完全通过键盘控制
   - 能够切换打开与关闭过渡动画
+  - 响应式设计
 - 流畅的过渡动画
 - 不错的性能
 - 良好的开发体验

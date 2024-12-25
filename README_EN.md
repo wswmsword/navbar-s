@@ -15,7 +15,7 @@ Features include:
 - 📱 Mobile-friendly design
 - 🚀 Excellent developer experience
 
-You can open [the demo link](https://wswmsword.github.io/examples/hanav/en) to see how hanav performs on different screen sizes.[![Edit hanav-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/rn6r6d)
+You can open [the demo link](https://wswmsword.github.io/examples/hanav/en) to see how hanav performs on different screen sizes, or [edit it directly in CodeSandbox](https://codesandbox.io/p/sandbox/rn6r6d) ([![Edit hanav-demo](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/p/sandbox/rn6r6d)) to view the changes in real time.
 
 <details>
 <summary>In Chrome, you can enable the 'Show a quick highlight on the focused object' accessibility feature to visually track the focus movement of components.</summary>
@@ -37,8 +37,8 @@ npm install hanav
 Below is the general layout of using components after installation. For a complete example, you can open [the `dark-space` folder in the repository](./examples/dark-space/components/header/nav.jsx) (Next.js project) to view.
 
 ```javascript
-import { NavBar, Trigger, Item, Content } from "hanav";
-function MyNavBar() {
+import { NavBar, Trigger, Item, Content, Head, Tail } from "hanav";
+export default function MyNavBar() {
   return <NavBar style={{ position: "relative" }}>
     <Trigger style={{ display: "flex", gap: 8 }}>
       <a href="https://github.com/wswmsword/hanav">Repo</a>
@@ -47,19 +47,15 @@ function MyNavBar() {
       <Item><button>Trigger 3</button></Item>
     </Trigger>
     <Content className="panelsWrapper">
-      <Item>{props => <div {...props}>Content 1</div>}</Item>
-      <Item>
-        {(props, head, tail) => <div {...props}>
-          <a href="https://react.dev/?uwu" ref={head}>React</a>
-          vs
-          <a href="https://vuejs.org/?uwu" ref={tail}>Vue</a>
-        </div>}
-      </Item>
-      <Item>{props => <div {...props}>Content 3</div>}</Item>
+      <Item><div>Content 1</div></Item>
+      <Item><div>
+        <Head><a href="https://react.dev/?uwu">React</a></Head> vs
+        <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+      </div></Item>
+      <Item><div>Content 3</div></Item>
     </Content>
   </NavBar>;
 }
-export default MyNavBar;
 ```
 
 Generally, the examples above are more suitable for desktops or wider screens. To see how hanav works on mobile devices, you can refer to the "[Mobile View Mini Series](#mobile-view-mini-series)" section below or check the complete example in the repository's [`dark-space` folder](./examples/dark-space/components/header/mini-nav.jsx).
@@ -67,6 +63,8 @@ Generally, the examples above are more suitable for desktops or wider screens. T
 ## API
 
 The NavBar component is primarily composed of four parts: `<NavBar>`, `<Trigger>`, `<Content>`, and `<Item>`. Additionally, `<Content>` includes some variants to accommodate requirements for **closing** or **customizing** transition animations.
+
+`<Head>` and `<Tail>` are used to mark the first and last focusable elements within each menu panel for keyboard navigation.
 
 For mobile views, hanav offers the mini series, including `<MiniNavBar>`, `<MiniTrigger>`, `<MiniContent>`, `<MiniItem>`, `<MiniMenu>`, `<MiniToggle>`, and `<MiniBack>`.
 
@@ -107,6 +105,10 @@ The `<Content>` component contains a set of content panels, each sequentially co
 `<Content>` accepts any built-in props, which are applied to the **inner** `<div>`. Props for the outer `<div>` can be passed using the `outer` attribute. The inner `<div>` is responsible for styling the entire panel, while the outer `<div>` is primarily used for hanav's internal control of horizontal panel animations.
 
 - `outer`, An object containing props that will be passed to the outer `<div>` rendered by `<Content>`.
+-	`onExpanding`: `() => void`, called when the menu expand animation starts.
+-	`onExpanded`: `() => void`, called after the expand animation ends.
+-	`onCollapsing`: `() => void`, called when the collapse animation starts.
+-	`onCollapsed`: `() => void`, called after the collapse animation ends.
 
 ### Item
 
@@ -129,19 +131,34 @@ The content of `<Item>` within `<Trigger>` can be a component or element, or a r
 
 Using a render prop approach may be more helpful for understanding the code, but it is not as concise as directly passing in a component. The render prop provides essential information, including events and ARIA labels.
 
-When `<Item>` is used within `<Content>`, its children form a content panel. The child element must be a render prop, structured like this:
+`<Item>` inside `<Content>` has its children serve as a content panel. The children can either be a component/element or a render prop:
 
 ```javascript
+// component/element
+<Item><div>
+    <Head><a href="https://react.dev/?uwu">React</a></Head> vs
+    <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+</div></Item>
+// render prop
 <Item>
   {(props, head, tail) => <div {...props} style={{ ...props.style, width: "100%", flexShrink: 0 }}>
-    <a href="https://react.dev/?uwu" ref={head}>React</a>
-    vs
+    <a href="https://react.dev/?uwu" ref={head}>React</a> vs
     <a href="https://vuejs.org/?uwu" ref={tail}>Vue</a>
   </div>}
 </Item>
 ```
 
-The props from the example above must be passed to the content panel element. These props also include essential information like events and ARIA labels. The render prop’s parameters additionally provide a second argument, `head`, and a third argument, `tail`. If the content panel contains focusable elements, `head` must be passed as a `ref` to the first focusable element, and `tail` must be passed as a `ref` to the last focusable element. These `refs` facilitate keyboard <kbd>Tab</kbd> navigation. If the content panel only displays content without any focusable elements, these two parameters can be ignored.
+hanav needs to identify **the focusable elements** at the beginning and end of each menu panel to enable keyboard navigation. As shown in the example above, the render prop form of children provides the 2nd and 3rd parameters, using `ref` to mark the first and last focusable elements. For children in the form of components/elements, the `<Head>` and `<Tail>` components can be used to declaratively mark the first and last focusable elements.
+
+### Head/Tail
+
+```javascript
+import { Head, Tail, MiniHead, MiniTail } from "hanav";
+```
+
+`<Head/Tail>` is used within the `<Item>` children of `<Content>`, while `<MiniHead/MiniTail>` is used within the `<MiniItem>` children of `<MiniContent>`.
+
+These components are used to mark the first and last focusable elements within each menu panel. Once successfully marked, pressing <kbd>Enter</kbd> to open the menu will focus on the first focusable element in the menu. When <kbd>Tab</kbd> is pressed continuously, the focus will cycle between the first and last focusable elements in the menu.
 
 ### Group
 
@@ -223,11 +240,11 @@ export default function MyLittleNav() {
           <a>Home Page</a>
           <a ref={tail} href="https://github.com/wswmsword/hanav/blob/main/images/wechat-pay.png">Donate</a>
         </div>}</MiniItem>
-        <MiniItem>{(p, head, tail) => <div {...p}>
-          <a ref={head}>Home Page</a>
+        <MiniItem><div>
+          <Head><a>Home Page</a></Head>
           <MiniBack>Back To Main Menu</MiniBack>
-          <a ref={tail}>Bye Bye</a>
-        </div>}</MiniItem>
+          <Tail><a>Bye Bye</a></Tail>
+        </div></MiniItem>
       </MiniContent>
     </MiniMenu>
   </MiniNavBar>;
@@ -274,6 +291,7 @@ The following list outlines the broad directions of this project, focusing on th
   - Proper ARIA labels, validated by Android TalkBack and iOS/MacOS VoiceOver
   - Fully controllable via keyboard
   - Toggleable opening and closing transition animations
+  - Responsive design
 - Smooth transition animations
 - Good performance
 - Excellent developer experience
@@ -286,6 +304,10 @@ The following list outlines the broad directions of this project, focusing on th
   - Promote and demote functions to find the appropriate level of abstraction
 
 Understand [some principles (CN)](./how-it-works.md).
+
+## Testing
+
+After contributing the source code, first add the corresponding unit tests in [the test file](./tests/index.spec.js), then run [the dark-space project](./examples/dark-space) of the repository, and finally run the tests in the root directory of Hanav.
 
 ## CHANGELOG
 

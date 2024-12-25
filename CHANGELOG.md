@@ -9,10 +9,16 @@
 
 ### Added
 
-- `<Head>` 和 `<Tail>` 焦点控制，替代菜单面板的 function children；
-- 添加钩子，开始展开 onExpanding、开始关闭 onCollapsing、已展开 onExpanded、已关闭 onCollapsed；
+- 支持 `<Trigger>` 超出部分滚动；
 - 使用 class-name 自定义过渡动画；
 - 位置自定义。
+
+## [2.2.0] - 2024-12-25
+
+### Added
+
+- 添加 `<Head/Tail/MiniHead/MiniTail>` 声明式地标记首尾可聚焦元素，用于焦点控制；
+- 添加钩子，开始展开 onExpanding、开始关闭 onCollapsing、已展开 onExpanded、已关闭 onCollapsed。
 
 ### Fixed
 
