@@ -58,6 +58,7 @@ export default function CustomMotionContentWrapper({ children, trans = {}, class
     moveX={moveX}
     innerStyle2={moveY}
     className={_className}
+    tp={Object.keys(otherTrans).find(p => Array.isArray(otherTrans[p]))}
     {...props}>
     {children}
   </ContentWrapper>

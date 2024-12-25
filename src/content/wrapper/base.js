@@ -3,7 +3,9 @@ import React, { useContext, useLayoutEffect, useState, useEffect, useCallback, u
 import { useEntryExitFocus } from "../../hooks";
 import { ContextForContent } from "../../context";
 
-export default function ContentWrapper({ children, outer = {}, style, style2, innerStyle2, moveX, ...wrapperInnerProps }) {
+export default function ContentWrapper({
+  children, outer = {}, style, style2, innerStyle2, moveX, tp,
+  onExpanding = () => {}, onExpanded = () => {}, onCollapsing = () => {}, onCollapsed = () => {}, ...wrapperInnerProps }) {
   const {
     openedMenuIdx,
     overMenuPanel,
@@ -51,19 +53,26 @@ export default function ContentWrapper({ children, outer = {}, style, style2, in
     }
   }, [calcLayout]);
 
+  useEffect(() => {
+    if (show && prevMenuIdxRef.current === -1) onExpanding();
+    else if (show && openedMenuIdx < 0) onCollapsing();
+  }, [show, openedMenuIdx]);
+
   // 焦点的入口和出口控制
   useEntryExitFocus(openedMenuIdx, onlyKeyFocus, prevMenuIdxRef, isKeyActive, btnsRef, panelsRef, headFocusItemInContent, show);
 
   const transitionEnd = useCallback(e => {
     const contentWrapper = contentWrapperRef.current;
+    if (tp !== e.propertyName) return; // 仅生效一个属性的 transitionend
     if (e.target !== contentWrapper && e.target !== contentWrapper.parentNode) return; // 过滤冒泡的 transitionend 事件
     transRunning.current = false;
     if (openedMenuIdx < 0) {
       setS(false);
       setLayout(false);
       prevMenuIdxRef.current = -1;
-    }
-  }, [openedMenuIdx]);
+      onCollapsed();
+    } else onExpanded();
+  }, [openedMenuIdx, onExpanded]);
 
   // loaded > 获取尺寸 > 初始状态 > tick > 动画状态
   if (loaded) {

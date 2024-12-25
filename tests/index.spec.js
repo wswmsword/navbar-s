@@ -29,6 +29,7 @@ test.describe("keyboard navigation", () => {
     await hanavBtn.focus();
     await page.keyboard.press("Enter"); // 展开面板，首元素聚焦
 
+    await page.waitForTimeout(450); // 等待动画结束
     await tab(page);
     await tab(page);
     await tab(page);
@@ -39,7 +40,6 @@ test.describe("keyboard navigation", () => {
     expect(hMenuFirst).toBeFocused();
 
     await sTab(page);
-    await page.waitForTimeout(30);
     expect(hMenuLast).toBeFocused();
   });
 

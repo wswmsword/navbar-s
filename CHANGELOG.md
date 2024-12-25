@@ -10,7 +10,7 @@
 ### Added
 
 - `<Head>` 和 `<Tail>` 焦点控制，替代菜单面板的 function children；
-- 添加钩子，开始展开、开始关闭、已展开、已关闭；
+- 添加钩子，开始展开 onExpanding、开始关闭 onCollapsing、已展开 onExpanded、已关闭 onCollapsed；
 - 使用 class-name 自定义过渡动画；
 - 位置自定义。
 

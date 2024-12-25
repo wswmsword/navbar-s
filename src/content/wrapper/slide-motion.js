@@ -28,6 +28,7 @@ export default function MotionContentWrapper({ children, ...props }) {
       clipPath: `inset(-${gap}px -100vw -100vw -100vw)`,
     })}
     innerStyle2={moveY}
+    tp="transform"
     {...props}>
     {children}
   </ContentWrapper>
