@@ -1,10 +1,10 @@
 import React, { useContext, useLayoutEffect, useState, useEffect, useCallback, useRef } from "react";
-
+import { getSlateWrapperTranslateVal } from "../../utils";
 import { useEntryExitFocus } from "../../hooks";
 import { ContextForContent } from "../../context";
 
 export default function ContentWrapper({
-  children, outer = {}, style, style2, innerStyle2, moveX, tp,
+  children, outer = {}, style, style2, innerStyle2, tp,
   onExpanding = () => {}, onExpanded = () => {}, onCollapsing = () => {}, onCollapsed = () => {}, ...wrapperInnerProps }) {
   const {
     openedMenuIdx,
@@ -121,4 +121,18 @@ export default function ContentWrapper({
     </div>;
   }
   return null;
+
+  function moveX(collapseOrTEnded, close, openedMenuIdx, prevMenuIdxRef, btnsRef, panelsClientWidthRef, gap) {
+  
+      if (close) {
+        const menuIdx = collapseOrTEnded && openedMenuIdx < 0 ? prevMenuIdxRef.current : openedMenuIdx;
+        return getSlateWrapperTranslateVal(
+          `${gap}px`,
+          menuIdx,
+          btnsRef,
+          panelsClientWidthRef);
+      }
+  
+      return `translateY(${gap}px)`;
+    }
 }
