@@ -127,10 +127,11 @@ export default function ContentWrapper({
       if (close) {
         const menuIdx = collapseOrTEnded && openedMenuIdx < 0 ? prevMenuIdxRef.current : openedMenuIdx;
         return getSlateWrapperTranslateVal(
-          `${gap}px`,
+          gap,
           menuIdx,
           btnsRef,
-          panelsClientWidthRef);
+          panelsClientWidthRef,
+          close === true ? 0 : Array.isArray(close) ? close[menuIdx] || 0 : close);
       }
   
       return `translateY(${gap}px)`;

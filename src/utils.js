@@ -1,12 +1,12 @@
 import { Children, cloneElement } from "react";
 
-export function getSlateWrapperTranslateVal(y, openedMenuIdx, triggerRef, slateClientWidthRef) {
+export function getSlateWrapperTranslateVal(y, openedMenuIdx, triggerRef, slateClientWidthRef, offsetX = 0) {
   const curSlateWidth = slateClientWidthRef.current[openedMenuIdx];
   const curTrigger = triggerRef.current[openedMenuIdx];
   const left = (curSlateWidth == null || curTrigger == null) ?
     0 :
     (curTrigger.offsetLeft + curTrigger.clientWidth / 2 - curSlateWidth / 2);
-  return `translate(${left}px, ${y})`;
+  return `translate(${left + offsetX}px, ${y}px)`;
 }
 
 /** 递归地为 `<Item>` 设置 `type` 和 `orderI` */
