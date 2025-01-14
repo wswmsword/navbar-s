@@ -51,7 +51,7 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
     };
     // render props
     if (typeof children === "function")
-      return children(triggerProps);
+      return children(triggerProps, openedMenu);
     // component
     return cloneElement(children, triggerProps);
   }
