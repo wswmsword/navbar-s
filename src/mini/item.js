@@ -41,7 +41,7 @@ export default function Item({ children, type, orderI }) {
 
     if (!opened) return null;
 
-    const { headFocusItemInContent, tailFocusItemInContent } = context;
+    const { headFocusItemInContent, tailFocusItemInContent, mockTail, mockHead, mockTailFocusByWrap, mockHeadFocusByWrap, menuRef } = context;
 
     contentIdsRef.current[orderI] = id;
 
@@ -53,9 +53,29 @@ export default function Item({ children, type, orderI }) {
     };
 
     return <ContextForMiniItemOrder.Provider value={orderI}>
+      {/* mock head */}
+      {headFocusItemInContent.current[orderI] == null && <button ref={mockHead} role="presentation" style={{ position: "absolute", opacity: 0 }} onFocus={(e) => {
+        if (mockHeadFocusByWrap.current) {
+          mockHeadFocusByWrap.current = false;
+          return ;
+        }
+        const tail = tailFocusItemInContent.current[orderI] || menuRef.current;
+        tail.focus();
+        e.preventDefault();
+      }}></button>}
       {typeof children === "function" ?
         children(contentProps, getHead, getTail) :
         cloneElement(children, contentProps)}
+      {/* mock tail */}
+      {tailFocusItemInContent.current[orderI] == null && <button ref={mockTail} role="presentation" style={{ position: "absolute", opacity: 0 }} onFocus={e => {
+        if (mockTailFocusByWrap.current) {
+          mockTailFocusByWrap.current = false;
+          return ;
+        }
+        const head = headFocusItemInContent.current[orderI] || menuRef.current;
+        head.focus();
+        e.preventDefault();
+      }}></button>}
     </ContextForMiniItemOrder.Provider>
   }
 

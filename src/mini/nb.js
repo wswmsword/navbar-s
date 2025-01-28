@@ -16,6 +16,11 @@ export default function NavBar({ children, ...navProps }) {
   const menuId = useId();
   const triggerIdsRef = useRef([]);
   const contentIdsRef = useRef([]);
+  const menuRef = useRef();
+  const mockTail = useRef();
+  const mockHead = useRef();
+  const mockTailFocusByWrap = useRef();
+  const mockHeadFocusByWrap = useRef();
 
 
   useEffect(() => {
@@ -23,7 +28,8 @@ export default function NavBar({ children, ...navProps }) {
       if (openedMenuIdx < 0) {
         btnsRef.current[prevIdx.current].focus();
       } else {
-        headFocusItemInContent.current[openedMenuIdx]?.focus?.();
+        const _head = headFocusItemInContent.current[openedMenuIdx] || menuRef.current;
+        _head.focus();
       }
     }
   }, [openedMenuIdx]);
@@ -39,7 +45,12 @@ export default function NavBar({ children, ...navProps }) {
     openedMenuIdx,
     tailFocusItemInContent,
     headFocusItemInContent,
-    menuId
+    menuId,
+    menuRef,
+    mockTail,
+    mockHead,
+    mockTailFocusByWrap,
+    mockHeadFocusByWrap,
   }), [expanded, openedMenuIdx]);
 
   const itemContextVal = useMemo(() => ({
@@ -50,6 +61,11 @@ export default function NavBar({ children, ...navProps }) {
     tailFocusItemInContent,
     triggerIdsRef,
     contentIdsRef,
+    menuRef,
+    mockTail,
+    mockTailFocusByWrap,
+    mockHead,
+    mockHeadFocusByWrap,
   }), [openedMenuIdx]);
 
   const contentContextVal = useMemo(() => ({
