@@ -124,7 +124,8 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
 
       // 回尾
       if (e.target === head && (e.key === "Tab" || e.keyCode === 9) && e.shiftKey) {
-        tail && tail.focus();
+        const _tail = tail || panelsRef.current[orderI];
+        _tail.focus();
         e.preventDefault();
       }
 
