@@ -1,4 +1,4 @@
-import React, { cloneElement, useContext, useEffect, useId, useState } from "react";
+import React, { cloneElement, useContext, useEffect, useId, useRef, useState } from "react";
 import { ContextForItem, ContextForItemOrder } from "./context";
 
 export default function Item({ children, type, orderI, contentItemStyle, transRunning }) {
@@ -6,6 +6,8 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
   const isContent = type === 'C';
   const context = useContext(ContextForItem);
   const ariaId = useId();
+  const mockTail = useRef();
+  const mockTailFocusByWrap = useRef();
 
   const { triggerAriaIds, contentAriaIds, prevMenuIdxRef, openedMenuIdx, isKeyActive, setActivePanel } = context;
 
@@ -98,17 +100,25 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
         }
       }
 
-      const head = headFocusItemInContent.current[orderI]
+      const head = headFocusItemInContent.current[orderI];
       const tail = tailFocusItemInContent.current[orderI];
       // 焦点矫正
       if (e.target === panelsRef.current[orderI]) {
         if (e.key === "Tab" || e.keyCode === 9) {
           if (e.shiftKey) {
-            tail && tail.focus();
+            if (tail) {
+              tail.focus();
+              e.preventDefault();
+            } else {
+              mockTailFocusByWrap.current = true;
+              mockTail.current.focus();
+            }
           } else {
-            head && head.focus();
+            if (head) {
+              head.focus();
+              e.preventDefault();
+            }
           }
-          e.preventDefault();
         }
       }
 
@@ -120,7 +130,8 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
 
       // 回头
       if (e.target === tail && (e.key === "Tab" || e.keyCode === 9) && !e.shiftKey) {
-        head && head.focus();
+        const _head = head || panelsRef.current[orderI];
+        _head.focus();
         e.preventDefault();
       }
     };
@@ -138,11 +149,27 @@ export default function Item({ children, type, orderI, contentItemStyle, transRu
     const getTail = e => tailFocusItemInContent.current[orderI] = e;
     
     return <ContextForItemOrder.Provider value={orderI}>
+      {/* mock head */}
+      {headFocusItemInContent.current[orderI] == null && <button role="presentation" style={{ position: "absolute", opacity: 0 }} onFocus={(e) => {
+        const tail = tailFocusItemInContent.current[orderI] || panelsRef.current[orderI];
+        tail.focus();
+        e.preventDefault();
+      }}></button>}
       {typeof children === "function" ?
         // render props
         children(contentProps, getHead, getTail) :
         // component
         cloneElement(children, contentProps)}
+      {/* mock tail */}
+      {tailFocusItemInContent.current[orderI] == null && <button ref={mockTail} role="presentation" style={{ position: "absolute", opacity: 0 }} onFocus={(e) => {
+        if (mockTailFocusByWrap.current) {
+          mockTailFocusByWrap.current = false;
+          return ;
+        }
+        const head = headFocusItemInContent.current[orderI] || panelsRef.current[orderI];
+        head.focus();
+        e.preventDefault();
+      }}></button>}
     </ContextForItemOrder.Provider>;
   }
 
