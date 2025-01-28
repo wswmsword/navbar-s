@@ -3,9 +3,9 @@ import React, { Children, cloneElement, useContext, useLayoutEffect, useState } 
 import { useEntryExitFocus } from "../hooks";
 import { ContextForContent } from "../context";
 
-export default function ContentReducedMotion({ children, inner = {}, xTrans, yTrans, trans, style, ...contentWrapperProps }) {
+export default function ContentReducedMotion({ children, outer = {}, xTrans, yTrans, trans, style, ...wrapperInnerProps }) {
   const { leaveMenuPanel, overMenuPanel, gap, contentWrapperRef, openedMenuIdx, dynamicWidth, panelsRef, close, btnsRef, onlyKeyFocus, prevMenuIdxRef, isKeyActive, headFocusItemInContent } = useContext(ContextForContent);
-  const { style: innerStyle, ...otherInnerProps } = inner;
+  const { style: outerStyle, ...otherOuterProps } = outer;
   const mapped = Children.map(children, (child, i) => cloneElement(child, { type: "C", orderI: i }));
   const [width, setW] = useState(0);
   const [offsetL, setL] = useState(0);
@@ -37,15 +37,15 @@ export default function ContentReducedMotion({ children, inner = {}, xTrans, yTr
       width: dynamicWidth ? width : "100%",
       visibility: dynamicWidth ? width === 0 ? 'hidden' : 'visible' : null,
       transform: close ? `translate(${offsetL}px,${gap}px)` : `translateY(${gap}px)`,
-      ...style }}
-    {...contentWrapperProps}>
+      ...outerStyle }}
+    {...otherOuterProps}>
     <div
       onMouseOver={overMenuPanel}
       onMouseLeave={leaveMenuPanel}
       style={{
         width: dynamicWidth ? width : null,
-        ...innerStyle }}
-      {...otherInnerProps}>
+        ...style }}
+      {...wrapperInnerProps}>
       {mapped[openedMenuIdx]}
     </div>
   </div>;
