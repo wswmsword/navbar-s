@@ -10,6 +10,8 @@ export { default as ReducedMotionContent } from "./src/content/reduced-motion";
 export { default as Group } from "./src/group";
 export { default as Head } from "./src/head";
 export { default as Tail } from "./src/tail";
+export { default as ArrowFocus } from "./src/arr-foc";
+export { default as ArrowFItem } from "./src/arr-fi";
 
 export { default as MiniNavBar } from "./src/mini/nb";
 export { default as MiniMenu } from "./src/mini/menu";
