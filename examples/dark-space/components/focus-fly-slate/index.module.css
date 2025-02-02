@@ -2,6 +2,7 @@
   padding: 18px;
 }
 .wrapper {
+  position: relative;
   padding: 18px;
   box-sizing: border-box;
   margin: 0;
@@ -25,8 +26,16 @@
   background-color: rgb(47, 47, 47);
 }
 
+:global(.light) .wrapper a:hover {
+  background-color: #efefef;
+}
+
 .title {
   color: #c5c5c5;
+}
+
+:global(.light) .title {
+  color: #565567;
 }
 
 .desc {
@@ -34,4 +43,19 @@
   font-weight: lighter;
   font-size: 15px;
   margin-top: 3px;
+}
+
+:global(.light) .title {
+  color: #0d0c22;
+}
+
+.arrows {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  pointer-events: none;
 }

@@ -4,6 +4,10 @@
   margin-bottom: 36px;
 }
 
+:global(.light) .footer {
+  color: #0d0c22;
+}
+
 .footer a {
   color: #406391;
   text-decoration: none;
@@ -22,6 +26,10 @@
 .hana a {
   text-decoration: none;
   transition: transform .5s;
+}
+
+:global(.light) .hana a {
+  transform: translateY(3px);
 }
 
 .hana a:hover {

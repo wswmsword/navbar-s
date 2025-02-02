@@ -1,7 +1,7 @@
 import styles from "./index.module.css";
 import { useState } from "react";
 import { NavBar, Trigger, Content, Item, CustomXMotionContent, CustomYMotionContent,
-  CustomMotionContent, ReducedMotionContent } from "hanav";
+  CustomMotionContent, ReducedMotionContent, ArrowFocus } from "hanav";
 import NavbarSlate from "../navbar-slate";
 import MobileForeverSlate from "../mobile-forever-slate";
 import FocusFlySlate from "../focus-fly-slate"
@@ -55,10 +55,12 @@ export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t,
             dynamicWidth={dynamicWidth} />}
         </Item>
         <Item>
-          <FocusFlySlate
-            t={t}
-            className={styles.mobileFfSlate}
-            dynamicWidth={dynamicWidth} />
+          <ArrowFocus>
+            <FocusFlySlate
+              t={t}
+              className={styles.mobileFfSlate}
+              dynamicWidth={dynamicWidth} />
+          </ArrowFocus>
         </Item>
       </FinalC>
     </NavBar>

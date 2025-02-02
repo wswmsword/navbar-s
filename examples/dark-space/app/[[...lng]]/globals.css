@@ -8,14 +8,23 @@ body {
   font-family: Inter,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
 }
 
+body.light {
+  background: white;
+}
+
 ul, li {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-a:focus, button:focus {
+a:focus, button:focus, input:focus {
   outline: 2px dashed white;
+  outline-offset: 3px
+}
+
+.light a:focus, .light button:focus, .light input:focus {
+  outline: 2px dashed #EF629F;
   outline-offset: 3px
 }
 
@@ -30,6 +39,17 @@ kbd {
   border-radius: 0.2em;
   box-shadow: inset 0 -1px 0 #6e768166;
   font-size: 12px;
+  margin: 0 .2em;
+}
+
+.light kbd {
+  padding: 4px 4px 6px;
+  font-size: .8em;
+  line-height: .8em;
+  border-radius: 4px;
+  color: #616161;
+  background: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+  box-shadow: inset 0 -2px #cdcde6, inset 0 0 1px 1px #fff, 0 1px 2px #1e235a66;
 }
 
 #root {
@@ -38,6 +58,10 @@ kbd {
 
 label {
   color: #c5c5c5;
+}
+
+.light label {
+  color: #0d0c22;
 }
 
 .lang_switch {

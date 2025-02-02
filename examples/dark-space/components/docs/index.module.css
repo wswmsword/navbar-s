@@ -2,6 +2,10 @@
   color: #c5c5c5;
 }
 
+:global(.light) .txt {
+  color: #0d0c22;
+}
+
 .txt a {
   color: #406391;
   text-decoration: none;
@@ -18,11 +22,21 @@
   color: #c5c5c5;
 }
 
+:global(.light) .feats {
+  color: #565567;
+}
+
 .feat {
   border: 1px solid rgb(63 63 63);
   border-radius: 8px;
   padding: 12px;
   background: #2a2a2a;
+}
+
+:global(.light) .feat {
+  background: #fafafa;
+  border: 1px solid #e3e3e3;
+  box-shadow:  0px 2px 0px #efefef;
 }
 
 .emoji, .featTt, .featDesc {
@@ -46,6 +60,10 @@
   font-weight: 300;
 }
 
+:global(.light) .featDesc {
+  color: #0d0c22;
+}
+
 .install {
   border: 1px solid rgb(43 43 43);
   border-radius: 8px;
@@ -53,6 +71,14 @@
   background: #2a2a2a;
   color: #c5c5c5;
   box-shadow: inset 0 1px 3px -1px #1b1d23, 0 1px 0 #3a3a3a;
+}
+
+:global(.light) .install {
+  border: 1px solid white;
+  background: #fafafa;
+  box-shadow: inset 0 1px 3px -1px #afb2bb, 0 1px 0 #e2e2e2;
+  /* box-shadow: inset 0 1px 0px 0px #ebebeb, 0 1px 0 #e2e2e2; */
+  color: #1f2328;
 }
 
 .presentation, .presentation2 {
@@ -74,8 +100,20 @@
   -webkit-text-fill-color: transparent;
 }
 
+:global(.light) .presentation2 {
+  background: #EF629F;
+  background: -webkit-linear-gradient(to left, #EF629F, #EECDA3);
+  background: linear-gradient(to left, #EF629F, #EECDA3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .textShadow {
   text-shadow: -1px -1px 0 #6c6c6c, -2px -2px 0 #6c6c6c, -3px -3px 0 #6c6c6c, -4px -4px 0 #6c6c6c;
+}
+
+:global(.light) .textShadow {
+  text-shadow: -1px -1px 0 #7add5f, -2px -2px 0 #7add5f;
 }
 
 @media (max-width: 720px) {

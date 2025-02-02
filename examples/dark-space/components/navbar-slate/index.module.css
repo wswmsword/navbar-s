@@ -19,6 +19,10 @@
   margin-bottom: 16px;
 }
 
+:global(.light) .navDesc {
+  color: #0d0c22;
+}
+
 .feat {
   display: flex;
 }
@@ -37,8 +41,17 @@
   margin-right: 7px;
 }
 
+:global(.light) .icon_wrap {
+  background-color: #efefef;
+  border: none;
+}
+
 .title {
   color: #c5c5c5;
+}
+
+:global(.light) .title {
+  color: #565567;
 }
 
 .desc {
@@ -46,6 +59,10 @@
   font-weight: lighter;
   font-size: 15px;
   margin-top: 3px;
+}
+
+:global(.light) .desc {
+  color: #0d0c22;
 }
 
 .links {

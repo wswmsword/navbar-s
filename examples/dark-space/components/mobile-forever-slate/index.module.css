@@ -12,6 +12,10 @@
   margin-bottom: 16px;
 }
 
+:global(.light) .desc {
+  color: #0d0c22;
+}
+
 .desc a {
   color: #406391;
   text-decoration: none;
