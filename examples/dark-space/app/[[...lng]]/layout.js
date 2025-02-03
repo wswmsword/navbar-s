@@ -28,8 +28,8 @@ export default function RootLayout({ children, params: { lng = [fallbackLng] } }
           <Link href="/en" className="lang_switch" lang="en">English</Link>}
         <Header lng={lng} lowerCaseLng={lowerCaseLng} />
         <CenterBox>
-          <Themes />
           {children}
+          <Themes />
           <Footer />
         </CenterBox>
       </Body>

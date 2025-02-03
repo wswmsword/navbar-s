@@ -5,14 +5,18 @@
   flex-direction: column;
   transform: translateX(calc(-100% - 7px));
   gap: 7px;
-}
 
-.ts {
+  & li {
+    position: relative;
+    font-size: 0;
+  }
+
   & button {
     width: 23px;
     height: 23px;
     border-radius: 50%;
     color: transparent;
+    font-size: 0;
   }
 }
 
@@ -26,6 +30,26 @@
   background-image: linear-gradient(90deg, #696969, #000000);
   border: none;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.1);
+}
+
+.ts li::after {
+  content: "✓";
+  font-size: 16px;
+  line-height: 16px;
+  position: absolute;
+  bottom: -2px;
+  right: -5px;
+  color: rgb(46, 203, 46);
+  font-weight: bold;
+  display: none;
+}
+
+:global(.light) .ll::after {
+  display: block;
+}
+
+:global(.dark) .ld::after {
+  display: block;
 }
 
 @media (max-width: 520px) {
