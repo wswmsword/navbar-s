@@ -2,7 +2,7 @@ import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import CenterBox from "@/components/center-box";
-import { dir } from 'i18next'
+import { dir } from "i18next"
 import { fallbackLng, languages } from "@/i18n/settings";
 import Link from "next/link";
 import Body from "./body";
@@ -32,6 +32,8 @@ export default function RootLayout({ children, params: { lng = [fallbackLng] } }
           <Themes />
           <Footer />
         </CenterBox>
+        {/* cause: Extra attributes from the server: class */}
+        <script dangerouslySetInnerHTML={{ __html: `document.body.classList.add(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")` }} async />
       </Body>
     </html>
   );

@@ -59,14 +59,15 @@ export default forwardRef(function FocusFlySlate({ dynamicWidth, t, className, m
           href="https://wswmsword.github.io/examples/focus-fly/#h-scroll"
           t={t("s_ffly_t6")} d={t("s_ffly_d6")} />}
     </li>
-    <li className={styles.arrows} role="presentation">
+    {!miniBack && <li className={styles.arrows} role="presentation">
       <kbd>↑</kbd>
       <div>
         <kbd>←</kbd>
         <kbd>↓</kbd>
         <kbd>→</kbd>
       </div>
-    </li>
+      <div className={`${styles.spatialTip}`}>（这里的焦点支持方向键导航哦）</div>
+    </li>}
   </ul></>;
 })
 

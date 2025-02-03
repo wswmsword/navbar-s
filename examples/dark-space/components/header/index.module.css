@@ -61,6 +61,10 @@
   border-radius: 19px;
 }
 
+:global(.light) .navLink {
+  font-weight: bold;
+}
+
 .navLink {
   text-decoration: none;
   margin-right: 8px;

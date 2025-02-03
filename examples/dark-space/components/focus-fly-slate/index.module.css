@@ -59,3 +59,12 @@
   gap: 2px;
   pointer-events: none;
 }
+
+.spatialTip {
+  position: absolute;
+  right: 69px;
+  bottom: 0;
+  width: 196px;
+  font-size: 13px;
+  color: rgb(179, 179, 179);
+}
