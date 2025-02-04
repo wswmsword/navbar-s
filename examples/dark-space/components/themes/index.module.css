@@ -9,6 +9,7 @@
   & li {
     position: relative;
     font-size: 0;
+    transition: transform .1s;
   }
 
   & button {
@@ -17,6 +18,14 @@
     border-radius: 50%;
     color: transparent;
     font-size: 0;
+  }
+
+  & li:hover {
+    transform: scale(1.1);
+  }
+
+  & li:active {
+    transform: scale(0.95);
   }
 }
 

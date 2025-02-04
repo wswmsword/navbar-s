@@ -11,8 +11,8 @@ export default function MiniNav({ mini, lowerCaseLng, t }) {
     <a className={styles.logoLink} href="https://github.com/wswmsword/hanav">Hanav Repo</a>
     <div className={styles.right}>
       {lowerCaseLng === "en" ?
-        <Link href="/zh-cn" className={styles.lang_switch} lang="zh-CN">简体中文</Link> :
-        <Link href="/en" className={styles.lang_switch} lang="en">English</Link>}
+        <Link href="/zh-cn" className={styles.lang_switch} lang="zh-CN">🌐 简体中文</Link> :
+        <Link href="/en" className={styles.lang_switch} lang="en">🌐 English</Link>}
       <MiniToggle className={styles.toggle}>
         {opened => <span className={`${styles.toggleIcon} ${opened ? styles.opened : ""}`}></span>}
       </MiniToggle>

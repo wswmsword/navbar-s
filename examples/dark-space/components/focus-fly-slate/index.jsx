@@ -66,7 +66,7 @@ export default forwardRef(function FocusFlySlate({ dynamicWidth, t, className, m
         <kbd>↓</kbd>
         <kbd>→</kbd>
       </div>
-      <div className={`${styles.spatialTip}`}>（这里的焦点支持方向键导航哦）</div>
+      <div className={`${styles.spatialTip}`}>{t("s_ffly_sn")}</div>
     </li>}
   </ul></>;
 })

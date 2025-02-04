@@ -71,7 +71,7 @@ label {
   right: 12px;
   top: 12px;
   font-size: 14px;
-  z-index: 2;
+  z-index: 1;
 }
 
 .lang_switch:hover {

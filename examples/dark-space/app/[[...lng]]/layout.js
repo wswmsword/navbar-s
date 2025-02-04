@@ -24,12 +24,12 @@ export default function RootLayout({ children, params: { lng = [fallbackLng] } }
     <html lang={targetLng} dir={dir(targetLng)}>
       <Body>
         {lowerCaseLng === "en" ?
-          <Link href="/zh-cn" className="lang_switch" lang="zh-CN">简体中文</Link> :
-          <Link href="/en" className="lang_switch" lang="en">English</Link>}
+          <Link href="/zh-cn" className="lang_switch" lang="zh-CN">🌐 简体中文</Link> :
+          <Link href="/en" className="lang_switch" lang="en">🌐 English</Link>}
         <Header lng={lng} lowerCaseLng={lowerCaseLng} />
         <CenterBox>
           {children}
-          <Themes />
+          <Themes lng={lng} />
           <Footer />
         </CenterBox>
         {/* cause: Extra attributes from the server: class */}
