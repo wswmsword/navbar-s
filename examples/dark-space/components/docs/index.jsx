@@ -11,7 +11,9 @@ export default async function Docs({ lng }) {
     <p className={styles.txt}>{desc}</p>
     <div className={styles.feats}>
       <FeatSlate emoji="🍯" title={t("smooth_t")} desc={t("smooth_d")} />
-      <FeatSlate emoji="🎹" title={t("key_t")} desc={<Trans i18nKey="key_d" t={t}>0<kbd>1</kbd>2<kbd>3</kbd>4</Trans>} />
+      <FeatSlate emoji="🎹" title={t("key_t")}
+        desc={<Trans i18nKey="key_d" t={t}>0<kbd>1</kbd>2<kbd>3</kbd>4</Trans>}
+        tip={<span className={styles.spatialNav}><a href={t("key_sn_a")} target="_blank">{t("key_sn")}</a></span>} />
       <FeatSlate emoji="♿️" title={t("a11y_t")} desc={t("a11y_d")} />
       <FeatSlate emoji="🎨" title={t("style_t")} desc={t("style_d")} />
       <FeatSlate emoji="📱" title={t("mobile_t")} desc={t("mobile_d")} />
@@ -24,10 +26,11 @@ export default async function Docs({ lng }) {
   </>;
 }
 
-function FeatSlate({ emoji, title, desc }) {
+function FeatSlate({ emoji, title, desc, tip }) {
   return <div className={styles.feat}>
   <p className={styles.emoji}>{emoji}</p>
   <p className={styles.featTt}>{title}</p>
   <p className={styles.featDesc}>{desc}</p>
+  {tip}
 </div>
 }

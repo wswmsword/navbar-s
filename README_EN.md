@@ -9,7 +9,7 @@ hanav is a React navigation menu component library that includes a set of trigge
 Features include:
 
 - 🍯 Smooth transition animation
-- 🎹 Keyboard navigation
+- 🎹 Keyboard navigation (Upcoming support for [spatial navigation](https://engineering.atspotify.com/2023/05/tv-spatial-navigation/))
 - ♿️ Assistive devices navigation
 - 🎨 Highly customizable
 - 📱 Mobile-friendly design
@@ -34,10 +34,10 @@ With npm：
 npm install hanav
 ```
 
-Below is the general layout of using components after installation. For a complete example, you can open [the `dark-space` folder in the repository](./examples/dark-space/components/header/nav.jsx) (Next.js project) to view.
+Below is the simplest usage of the components after installation. For more refined examples, check [the `dark-space` folder in the repository](./examples/dark-space/components/header/nav.jsx) (Next.js project).
 
 ```javascript
-import { NavBar, Trigger, Item, Content, Head, Tail } from "hanav";
+import { NavBar, Trigger, Item, Content } from "hanav";
 export default function MyNavBar() {
   return <NavBar style={{ position: "relative" }}>
     <Trigger style={{ display: "flex", gap: 8 }}>
@@ -49,8 +49,8 @@ export default function MyNavBar() {
     <Content className="panelsWrapper">
       <Item><div>Content 1</div></Item>
       <Item><div>
-        <Head><a href="https://react.dev/?uwu">React</a></Head> vs
-        <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+        <a href="https://react.dev/?uwu">React</a> vs
+        <a href="https://vuejs.org/?uwu">Vue</a>
       </div></Item>
       <Item><div>Content 3</div></Item>
     </Content>
@@ -64,7 +64,7 @@ Generally, the examples above are more suitable for desktops or wider screens. T
 
 The NavBar component is primarily composed of four parts: `<NavBar>`, `<Trigger>`, `<Content>`, and `<Item>`. Additionally, `<Content>` includes some variants to accommodate requirements for **closing** or **customizing** transition animations.
 
-`<Head>` and `<Tail>` are used to mark the first and last focusable elements within each menu panel for keyboard navigation.
+`<Head>` and `<Tail>` are used to mark the first and last focusable elements within each menu panel, optimizing keyboard navigation.
 
 For mobile views, hanav offers the mini series, including `<MiniNavBar>`, `<MiniTrigger>`, `<MiniContent>`, `<MiniItem>`, `<MiniMenu>`, `<MiniToggle>`, and `<MiniBack>`.
 
@@ -82,7 +82,7 @@ import { NavBar } from "hanav";
 - `gap`, number, Set the distance between the panel and the trigger (px)
 - `dynamicWidth`, boolean, allow the panel width to vary
 - `onlyKeyFocus`, boolean, set focus transfer to occur only when controlled by the keyboard
-- `close`, boolean, follow the trigger's position when toggling panels
+- `close`, boolean|number, follow the trigger's position when toggling panels
 
 ### Trigger
 
@@ -126,10 +126,10 @@ The content of `<Item>` within `<Trigger>` can be a component or element, or a r
 // component/element
 <Item><button>Trigger 1</button></Item>
 // render prop
-<Item>{props => <button {...props}>Trigger 1</button>}</Item>
+<Item>{(props, isOpen) => <button {...props}>Trigger 1</button>}</Item>
 ```
 
-Using a render prop approach may be more helpful for understanding the code, but it is not as concise as directly passing in a component. The render prop provides essential information, including events and ARIA labels.
+The render prop approach may help with understanding the code better, but it is not as concise as passing the component directly. The first argument of the render prop contains necessary information such as events and ARIA labels, while the second argument indicates the expanded or collapsed state.
 
 `<Item>` inside `<Content>` has its children serve as a content panel. The children can either be a component/element or a render prop:
 
@@ -156,7 +156,7 @@ hanav needs to identify **the focusable elements** at the beginning and end of e
 import { Head, Tail, MiniHead, MiniTail } from "hanav";
 ```
 
-`<Head/Tail>` is used within the `<Item>` children of `<Content>`, while `<MiniHead/MiniTail>` is used within the `<MiniItem>` children of `<MiniContent>`.
+`<Head/Tail>` is used within the `<Item>` children of `<Content>`, while `<MiniHead/MiniTail>` is used within the `<MiniItem>` children of `<MiniContent>`. They are all **optional**.
 
 These components are used to mark the first and last focusable elements within each menu panel. Once successfully marked, pressing <kbd>Enter</kbd> to open the menu will focus on the first focusable element in the menu. When <kbd>Tab</kbd> is pressed continuously, the focus will cycle between the first and last focusable elements in the menu.
 

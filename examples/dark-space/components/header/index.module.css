@@ -39,6 +39,21 @@
   box-shadow: 0 4px 0px -1px #e7e7e7;
 }
 
+.repolink::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 18px;
+  background: #575757;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+:global(.light) .repolink::after {
+  background: #e6e2e2;
+}
+
 .navBtn, .navLink {
   display: inline-block;
   position: relative;

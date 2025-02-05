@@ -22,7 +22,7 @@ export default function Nav({ mini, small, onlyKeyFocus, dynamicWidth, close, t,
   return <div className={`${styles.header} ${mini == null ? "" : mini ? styles.hide : styles.show}`}> 
     <NavBar className={styles.nav} gap={small ? 0 : 16} onlyKeyFocus={onlyKeyFocus} dur={.4} dynamicWidth={dynamicWidth} close={close}>
       <Trigger className={styles.triggerWrapper}>
-        <a href="https://github.com/wswmsword/hanav" className={styles.navLink}>Repo</a>
+        <a href="https://github.com/wswmsword/hanav" className={`${styles.navLink} ${styles.repolink}`}>Repo</a>
         <Item><button className={styles.navBtn}>Hanav</button></Item>
         <Item><button className={styles.navBtn}><span className={styles.onlyDesktop}>Postcss-</span>Mobile-Forever</button></Item>
         <Item><button className={styles.navBtn}>Focus-Fly</button></Item>

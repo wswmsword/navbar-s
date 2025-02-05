@@ -49,6 +49,8 @@
   "smooth_d": "There are intuitive entry, exit, and transition animations. After the exit animation ends, the disappeared panel will be removed from the DOM.",
   "key_t": "Keyboard Navigation",
   "key_d": "Pressing <1>Tab</1> and <3>Esc</3> to navigate, users can freely choose mouse or keyboard access.",
+  "key_sn": "Spatial Nav Soon",
+  "key_sn_a": "https://engineering.atspotify.com/2023/05/tv-spatial-navigation/",
   "a11y_t": "Assistive Devices Navigation",
   "a11y_d": "There are standardized ARIA attributes, ensuring accessibility, and the content can be accessed using assistive devices like TalkBack or VoiceOver.",
   "style_t": "Highly Customizable",

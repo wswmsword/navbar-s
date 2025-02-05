@@ -2,7 +2,7 @@
   "type": "module",
   "name": "hanav",
   "version": "2.2.1",
-  "description": "A React navigation menu component. Super Smooth! Super Fast! Super Accessible!",
+  "description": "A React Navigation Menu Component Library.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "index.d.ts",
@@ -22,7 +22,12 @@
     "navigation-menu",
     "navigation-bar",
     "nav-bar",
-    "accessibility"
+    "accessibility",
+    "spatial-navigation",
+    "keyboard-navigation",
+    "react-navbar",
+    "a11y",
+    "react-component"
   ],
   "author": "wswmsword",
   "license": "MIT",

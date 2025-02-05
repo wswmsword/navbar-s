@@ -7,7 +7,7 @@
 hanav 是一个 React 导航栏组件库，包含一组触发器和一组对应的菜单面板，用户可以通过触发器展开、切换、收起菜单面板。导航栏通常出现在网站的顶部，提供最希望用户访问的链接和其它控件。hanav 有下面这些特性：
 
 - 🍯 流畅的过渡动画；
-- 🎹 键盘导航；
+- 🎹 键盘导航（即将支持[空间导航](https://juejin.cn/post/7463871170015346703)）；
 - ♿️ 屏幕阅读器导航；
 - 🎨 高度自定义；
 - 📱 兼容移动端设计；
@@ -34,10 +34,10 @@ hanav 是一个 React 导航栏组件库，包含一组触发器和一组对应�
 npm install hanav
 ```
 
-下面是安装之后，使用组件的大致形态，完整的范例可以打开[仓库的 `dark-space` 文件夹](./examples/dark-space/components/header/nav.jsx)（Next.js 项目）查看：
+下面是安装之后，使用组件的最简形态，更精美的范例可以打开[仓库的 `dark-space` 文件夹](./examples/dark-space/components/header/nav.jsx)（Next.js 项目）查看：
 
 ```javascript
-import { NavBar, Trigger, Item, Content, Head, Tail } from "hanav";
+import { NavBar, Trigger, Item, Content } from "hanav";
 export default function MyNavBar() {
   return <NavBar style={{ position: "relative" }}>
     <Trigger style={{ display: "flex", gap: 8 }}>
@@ -49,8 +49,8 @@ export default function MyNavBar() {
     <Content className="panelsWrapper">
       <Item><div>Content 1</div></Item>
       <Item><div>
-        <Head><a href="https://react.dev/?uwu">React</a></Head> vs
-        <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+        <a href="https://react.dev/?uwu">React</a> vs
+        <a href="https://vuejs.org/?uwu">Vue</a>
       </div></Item>
       <Item><div>Content 3</div></Item>
     </Content>
@@ -64,7 +64,7 @@ export default function MyNavBar() {
 
 导航栏组件主要由 4 部分组成，分别是 `<NavBar>`、`<Trigger>`、`<Content>` 和 `<Item>`，此外，`<Content>` 还包括一些变体用于满足**关闭**或**定制**过渡动画的需求。
 
-`<Head>` 和 `<Tail>` 用于标记每个菜单面板中可被聚焦的首尾元素，用于键盘导航。
+`<Head>` 和 `<Tail>` 用于标记每个菜单面板中可被聚焦的首尾元素，用于**优化**键盘导航。
 
 对于移动端视图，hanav 提供了 mini 系列，包括 `<MiniNavBar>`、`<MiniTrigger>`、`<MiniContent>`、`<MiniItem>`、`<MiniMenu>`、`<MiniToggle>`、`<MiniBack>`。
 
@@ -82,7 +82,7 @@ import { NavBar } from "hanav";
 - `gap`，number，设置面板和触发器之间的距离（px）；
 - `dynamicWidth`，boolean，允许面板的宽度变化；
 - `onlyKeyFocus`，boolean，设置焦点仅在键盘控制时触发转移；
-- `close`，boolean，切换面板时跟随触发器的位置。
+- `close`，boolean|number，切换面板时跟随触发器的位置。
 
 ### Trigger
 
@@ -126,10 +126,10 @@ import { Item } from "hanav";
 // 组件/元素
 <Item><button>Trigger 1</button></Item>
 // render prop
-<Item>{props => <button {...props}>Trigger 1</button>}</Item>
+<Item>{(props, isOpen) => <button {...props}>Trigger 1</button>}</Item>
 ```
 
-render prop 的方式也许对于代码的理解更有帮助，但是不如直接传入组件简洁。render prop 的入参包含了事件、ARIA 标签等必要信息。
+render prop 的方式也许对于代码的理解更有帮助，但是不如直接传入组件简洁。render prop 的第一个入参包含了事件、ARIA 标签等必要信息，第二个入参表示展开或收起的状态。
 
 `<Item>` 在 `<Content>` 中时，`<Item>` 的子元素是一个内容面板，子元素 children 同样可以是一个组件/元素，也可以是一个 render prop：
 
@@ -156,7 +156,7 @@ hanav 需要知晓菜单面板中的首尾**可聚焦元素**，以此完成键�
 import { Head, Tail, MiniHead, MiniTail } from "hanav";
 ```
 
-`<Head/Tail>` 用于 `<Content>` 下的 `<Item>` 子元素中，`<MiniHead/MiniTail>` 用于 `<MiniContent>` 下的 `<MiniItem>` 子元素中。
+`<Head/Tail>` 用于 `<Content>` 下的 `<Item>` 子元素中，`<MiniHead/MiniTail>` 用于 `<MiniContent>` 下的 `<MiniItem>` 子元素中。它们都是**可选**的。
 
 它们用于标记每个菜单面板中的首尾可聚焦元素。成功标记后，按下 <kbd>Enter</kbd> 打开菜单时，将聚焦菜单的首个可聚焦元素，在菜单中持续 <kbd>Tab</kbd> 时，焦点会在首尾可聚焦元素之间循环。
 
