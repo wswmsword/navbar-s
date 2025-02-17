@@ -1,4 +1,4 @@
-# hanav (hana-nav)
+# hanav
 
 <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu" align="right"></a>
 
@@ -241,9 +241,9 @@ export default function MyLittleNav() {
           <a ref={tail} href="https://github.com/wswmsword/hanav/blob/main/images/wechat-pay.png">Donate</a>
         </div>}</MiniItem>
         <MiniItem><div>
-          <Head><a>Home Page</a></Head>
+          <a>Home Page</a>
           <MiniBack>Back To Main Menu</MiniBack>
-          <Tail><a>Bye Bye</a></Tail>
+          <a>Bye Bye</a>
         </div></MiniItem>
       </MiniContent>
     </MiniMenu>

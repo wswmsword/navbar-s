@@ -1,4 +1,4 @@
-# hanav（hana-nav）
+# hanav
 
 <a href="https://996.icu"><img src="https://img.shields.io/badge/link-996.icu-red.svg" alt="996.icu" align="right"></a>
 
@@ -136,8 +136,8 @@ render prop 的方式也许对于代码的理解更有帮助，但是不如直�
 ```javascript
 // 组件/元素
 <Item><div>
-    <Head><a href="https://react.dev/?uwu">React</a></Head> vs
-    <Tail><a href="https://vuejs.org/?uwu">Vue</a></Tail>
+  <a href="https://react.dev/?uwu">React</a> vs
+  <a href="https://vuejs.org/?uwu">Vue</a>
 </div></Item>
 // render prop
 <Item>
@@ -239,9 +239,9 @@ export default function MyLittleNav() {
           <a ref={tail} href="https://github.com/wswmsword/hanav/blob/main/images/wechat-pay.png">Donate</a>
         </div>}</MiniItem>
         <MiniItem><div>
-          <Head><a>Home Page</a></Head>
+          <a>Home Page</a>
           <MiniBack>Back To Main Menu</MiniBack>
-          <Tail><a>Bye Bye</a></Tail>
+          <a>Bye Bye</a>
         </div></MiniItem>
       </MiniContent>
     </MiniMenu>
