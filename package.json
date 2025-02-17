@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "hanav",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "A React Navigation Menu Component Library.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
